@@ -83,10 +83,11 @@ SELO_HORAS = (
 )
 # Selo de evento oficial (veio do site da Unisul ou da Ânima, não de uma liga): canto de cima, à direita.
 SELO_OFICIAL = (
-    '<div style="position:absolute;z-index:3;right:{x}px;top:{y}px;transform:rotate(7deg);padding:10px 24px 12px;'
-    'background:#FFFFFF;color:#0A2472;border-radius:18px;box-shadow:0 0 0 5px #0A2472,7px 9px 0 5px #0A2472;text-align:center">'
-    '<div class="mont" style="font-size:{p}px;line-height:1;letter-spacing:0.1em;color:#1D3FC4">OFICIAL</div>'
-    '<div class="mont" style="font-size:{g}px;line-height:1;margin-top:4px">{nome}</div></div>'
+    '<div style="position:absolute;z-index:3;right:{x}px;top:{y}px;transform:rotate(7deg);padding:16px 32px 18px;'
+    'background:#FFFFFF;color:#0A2472;border:6px solid #FFC93C;border-radius:24px;'
+    'box-shadow:0 0 0 6px #0A2472,9px 11px 0 6px #0A2472;text-align:center">'
+    '<div class="mont" style="font-size:{p}px;line-height:1;letter-spacing:0.12em;color:#1D3FC4">OFICIAL</div>'
+    '<div class="mont" style="font-size:{g}px;line-height:1;margin-top:6px">{nome}</div></div>'
 )
 
 
@@ -222,7 +223,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
         "slide-1": (preencher("capa.html", {
             "COR": cor, "COR_DETALHE": detalhe, "ETIQUETA": esc(etiqueta),
             "TITULO": esc(t.get("titulo")), "ORGANIZACAO": org_pilula, "DATA": data_capa or "EM BREVE",
-            "SELO_HORAS": selo(46, 128, 64, 19), "SELO_OFICIAL": selo_oficial(40, 46, 40, 18),
+            "SELO_HORAS": selo(46, 128, 64, 19), "SELO_OFICIAL": selo_oficial(36, 36, 66, 26),
         }), 1080, 1350),
         "slide-2": (preencher("detalhes.html", {
             "COR": cor2, "LINHAS": "\n".join(linhas) or '<div class="valor">Detalhes no perfil da organização</div>',
@@ -232,7 +233,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
             "COR": cor, "COR_DETALHE": detalhe, "CHAMADA": chamada, "TITULO": esc(t.get("titulo")),
             "CHAMADA_ESTILO": "white-space:nowrap" if len(chamada) <= 14 else "",
             "ORGANIZACAO": org_pilula, "PILULAS": pilulas, "INSCRICAO": inscricao,
-            "SELO_HORAS": selo(52, 236, 72, 21), "SELO_OFICIAL": selo_oficial(44, 60, 46, 20),
+            "SELO_HORAS": selo(52, 236, 72, 21), "SELO_OFICIAL": selo_oficial(22, 22, 66, 26),
         }), 1080, 1920),
     }
 
