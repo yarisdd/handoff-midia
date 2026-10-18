@@ -81,6 +81,13 @@ SELO_HORAS = (
     '<div class="mont" style="font-size:{g}px;line-height:0.95">+{h}</div>'
     '<div class="mont" style="font-size:{p}px;line-height:1;margin-top:6px;letter-spacing:0.02em">COMPLEMENTARES</div></div>'
 )
+# Selo de evento oficial (veio do site da Unisul ou da Ânima, não de uma liga): canto de cima, à direita.
+SELO_OFICIAL = (
+    '<div style="position:absolute;z-index:3;right:{x}px;top:{y}px;transform:rotate(7deg);padding:10px 24px 12px;'
+    'background:#FFFFFF;color:#0A2472;border-radius:18px;box-shadow:0 0 0 5px #0A2472,7px 9px 0 5px #0A2472;text-align:center">'
+    '<div class="mont" style="font-size:{p}px;line-height:1;letter-spacing:0.1em;color:#1D3FC4">OFICIAL</div>'
+    '<div class="mont" style="font-size:{g}px;line-height:1;margin-top:4px">{nome}</div></div>'
+)
 
 
 def esc(v) -> str:
@@ -184,6 +191,11 @@ def montar_htmls(id_: str, t: dict) -> dict:
             return ""
         return SELO_HORAS.format(x=x, y=y, g=grande, p=pequeno, h=fmt_horas(conta).upper())
 
+    oficial = esc(t.get("oficial")).upper()  # "UNISUL" / "ÂNIMA", escrito pelo Apps Script para eventos de site
+
+    def selo_oficial(x, y, grande, pequeno):
+        return SELO_OFICIAL.format(x=x, y=y, g=grande, p=pequeno, nome=oficial) if oficial else ""
+
     linhas = []
     for chave in ["data", "horario", "local", "valor", "horas", "publico"]:
         valor = horas_txt if chave == "horas" else esc(t.get(chave))
@@ -210,7 +222,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
         "slide-1": (preencher("capa.html", {
             "COR": cor, "COR_DETALHE": detalhe, "ETIQUETA": esc(etiqueta),
             "TITULO": esc(t.get("titulo")), "ORGANIZACAO": org_pilula, "DATA": data_capa or "EM BREVE",
-            "SELO_HORAS": selo(46, 128, 64, 19),
+            "SELO_HORAS": selo(46, 128, 64, 19), "SELO_OFICIAL": selo_oficial(40, 46, 40, 18),
         }), 1080, 1350),
         "slide-2": (preencher("detalhes.html", {
             "COR": cor2, "LINHAS": "\n".join(linhas) or '<div class="valor">Detalhes no perfil da organização</div>',
@@ -220,7 +232,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
             "COR": cor, "COR_DETALHE": detalhe, "CHAMADA": chamada, "TITULO": esc(t.get("titulo")),
             "CHAMADA_ESTILO": "white-space:nowrap" if len(chamada) <= 14 else "",
             "ORGANIZACAO": org_pilula, "PILULAS": pilulas, "INSCRICAO": inscricao,
-            "SELO_HORAS": selo(52, 236, 72, 21),
+            "SELO_HORAS": selo(52, 236, 72, 21), "SELO_OFICIAL": selo_oficial(44, 60, 46, 20),
         }), 1080, 1920),
     }
 
