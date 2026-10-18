@@ -45,9 +45,9 @@ ICONES = {
     "horario": '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
     "local": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
     "valor": '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>',
-    "publico": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+    "publico": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
 }
-ROTULOS = {"data": "Quando", "horario": "Horário", "local": "Onde", "valor": "Investimento", "publico": "Para quem"}
+ROTULOS = {"data": "Quando", "horario": "Horário", "local": "Onde", "valor": "Investimento", "publico": "Vale saber"}  # público, vagas, certificado...
 CORES_ICONE = {"data": "#C6F24E", "horario": "#FFC93C", "local": "#3FA0F0", "valor": "#8C86E6", "publico": "#3FB67A"}
 
 
@@ -117,8 +117,9 @@ def montar_htmls(id_: str, t: dict) -> dict:
         if prazo else ""
     )
     pilulas = "".join(
-        f'<div class="pilula">{p}</div>'
-        for p in [" · ".join(x for x in [data_txt, horario] if x), esc(t.get("local"))] if p
+        f'<div class="pilula"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2472" stroke-width="2.4" '
+        f'stroke-linecap="round" stroke-linejoin="round">{ICONES[icone]}</svg><span>{p}</span></div>'
+        for icone, p in [("data", " · ".join(x for x in [data_txt, horario] if x)), ("local", esc(t.get("local")))] if p
     )
     chamada = esc(t.get("lembrete")) or ("Inscrições acabam amanhã" if prazo else "É amanhã!")
 
