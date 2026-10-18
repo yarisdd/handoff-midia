@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Story de lembrete</title>
+<!-- Modelo usado por scripts/gerar_eventos.py para o story da véspera (1080x1920). -->
+<style>
+@font-face{font-family:'Montserrat';font-style:italic;font-weight:100 900;src:url(../../fontes/Montserrat-Italic-latin.woff2) format('woff2')}
+@font-face{font-family:'Figtree';font-style:normal;font-weight:300 900;src:url(../../fontes/Figtree-latin.woff2) format('woff2')}
+body{margin:0}
+.mont{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900}
+.grande{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;line-height:1.02;letter-spacing:-0.02em;color:#FFFFFF;-webkit-text-stroke:14px #0A2472;paint-order:stroke fill;text-shadow:0 3px 0 #0A2472,0 6px 0 #0A2472,0 9px 0 #0A2472,0 12px 0 #0A2472,0 15px 0 #0A2472,0 18px 0 #0A2472;text-transform:uppercase;text-align:center;width:100%}
+.pilula{padding:18px 34px;background:#FFFFFF;color:#0A2472;border-radius:999px;box-shadow:0 0 0 5px #0A2472,6px 8px 0 5px #0A2472;font-weight:800;font-size:40px;text-align:center;max-width:900px}
+</style>
+</head>
+<body>
+<div style="position:relative;overflow:hidden;width:1080px;height:1920px;box-sizing:border-box;padding:150px 72px 170px;background-color:{{COR}};background-image:radial-gradient(rgba(255,255,255,0.13) 2.5px,transparent 3px);background-size:24px 24px;color:#FFFFFF;font-family:'Figtree',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:space-between">
+<div style="position:absolute;top:0;right:0;width:320px;height:280px;background:{{COR_DETALHE}};clip-path:polygon(35% 0,100% 0,100% 100%)"></div>
+<svg width="1080" height="1920" aria-hidden="true" style="position:absolute;left:0;top:0;opacity:0.25;mix-blend-mode:overlay;pointer-events:none"><filter id="grao"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="1080" height="1920" filter="url(#grao)"></rect></svg>
+<svg width="70" height="70" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:90px;top:420px"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFC93C"></path></svg>
+<svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;right:110px;top:520px"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFFFFF"></path></svg>
+
+<div style="position:relative;display:flex;align-items:center;gap:16px">
+<div class="mont" style="width:64px;height:64px;border-radius:16px;background:#FFFFFF;color:#1D3FC4;display:flex;align-items:center;justify-content:center;font-size:42px">h</div>
+<div class="mont" style="font-size:38px;letter-spacing:0.03em">HANDOFF</div>
+</div>
+
+<div style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%">
+<div class="mont" style="transform:rotate(-4deg);padding:16px 36px;background:#FFC93C;color:#0A2472;border:6px solid #FFFFFF;border-radius:18px;box-shadow:0 0 0 5px #0A2472,8px 10px 0 5px #0A2472;font-size:40px">LEMBRETE</div>
+<div style="position:relative;margin-top:40px;width:880px;height:440px;display:flex;align-items:center;justify-content:center;transform:rotate(-3deg)">
+<div class="grande" data-caber="170,80" style="{{CHAMADA_ESTILO}}">{{CHAMADA}}</div>
+</div>
+<div style="position:relative;margin-top:40px;width:936px;height:330px;display:flex;align-items:center;justify-content:center">
+<div data-caber="64,34" style="width:100%;box-sizing:border-box;background:#FFFFFF;color:#0A2472;border-radius:32px;box-shadow:0 0 0 6px #0A2472,14px 16px 0 6px #0A2472;padding:0.6em 0.8em;transform:rotate(1.5deg);text-align:center;font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;line-height:1.08;text-transform:uppercase">{{TITULO}}<div style="margin-top:0.35em;font-family:'Figtree',sans-serif;font-style:normal;font-weight:800;font-size:0.55em;color:#1D3FC4;text-transform:none">{{ORGANIZACAO}}</div></div>
+</div>
+</div>
+
+<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:26px;width:100%">
+{{PILULAS}}
+<div style="transform:rotate(-1.5deg);padding:22px 40px;background:#C6F24E;color:#0A2472;border-radius:999px;box-shadow:0 0 0 6px #0A2472,8px 10px 0 6px #0A2472;font-weight:900;font-size:40px;text-align:center;max-width:900px" data-caber-largura="40,26">{{INSCRICAO}}</div>
+<div style="font-size:30px;font-weight:700">@handoff.med</div>
+</div>
+</div>
+<script>
+function caber(el, max, min) {
+  const caixa = el.parentElement;
+  let s = max;
+  el.style.fontSize = s + 'px';
+  while (s > min && (el.offsetHeight > caixa.clientHeight || el.scrollWidth > el.clientWidth + 1)) { s -= 4; el.style.fontSize = s + 'px'; }
+}
+function caberLargura(el, max, min, limite) {
+  let s = max;
+  el.style.fontSize = s + 'px';
+  while (s > min && (el.offsetWidth > limite || el.offsetHeight > 3 * s)) { s -= 2; el.style.fontSize = s + 'px'; }
+}
+window.ajustar = function () {
+  document.querySelectorAll('[data-caber]').forEach(function (el) { const v = el.dataset.caber.split(',').map(Number); caber(el, v[0], v[1]); });
+  document.querySelectorAll('[data-caber-largura]').forEach(function (el) { const v = el.dataset.caberLargura.split(',').map(Number); caberLargura(el, v[0], v[1], 920); });
+  return true;
+};
+</script>
+</body>
+</html>

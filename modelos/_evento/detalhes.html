@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Detalhes do evento</title>
+<!-- Modelo usado por scripts/gerar_eventos.py. {{LINHAS}} recebe uma linha por informação disponível (data, horário, local, valor, público). -->
+<style>
+@font-face{font-family:'Montserrat';font-style:italic;font-weight:100 900;src:url(../../fontes/Montserrat-Italic-latin.woff2) format('woff2')}
+@font-face{font-family:'Figtree';font-style:normal;font-weight:300 900;src:url(../../fontes/Figtree-latin.woff2) format('woff2')}
+body{margin:0}
+.mont{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900}
+.grande{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;font-size:110px;line-height:1.02;letter-spacing:-0.02em;-webkit-text-stroke:12px #0A2472;paint-order:stroke fill;text-shadow:0 3px 0 #0A2472,0 6px 0 #0A2472,0 9px 0 #0A2472,0 12px 0 #0A2472,0 15px 0 #0A2472}
+.linha{display:flex;align-items:center;gap:0.6em;padding:0.32em 0}
+.icone{flex:0 0 auto;width:1.9em;height:1.9em;border-radius:50%;display:flex;align-items:center;justify-content:center;border:4px solid #0A2472}
+.icone svg{width:1.05em;height:1.05em}
+.rotulo{font-size:0.58em;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#1D3FC4}
+.valor{font-size:1em;font-weight:800;color:#0A2472;line-height:1.15}
+</style>
+</head>
+<body>
+<div style="position:relative;overflow:hidden;width:1080px;height:1350px;box-sizing:border-box;padding:64px 72px;background-color:{{COR}};background-image:radial-gradient(rgba(255,255,255,0.16) 2.5px,transparent 3px);background-size:24px 24px;color:#0A2472;font-family:'Figtree',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:space-between">
+<svg width="1080" height="1350" aria-hidden="true" style="position:absolute;left:0;top:0;opacity:0.22;mix-blend-mode:overlay;pointer-events:none"><filter id="grao"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="1080" height="1350" filter="url(#grao)"></rect></svg>
+<svg width="56" height="56" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;left:96px;top:200px"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFC93C"></path></svg>
+<svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" style="position:absolute;right:110px;top:150px"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#FFFFFF"></path></svg>
+
+<div style="position:relative;display:flex;align-items:center;gap:14px;color:#FFFFFF">
+<div class="mont" style="width:54px;height:54px;border-radius:14px;background:#FFFFFF;color:#1D3FC4;display:flex;align-items:center;justify-content:center;font-size:36px">h</div>
+<div class="mont" style="font-size:32px;letter-spacing:0.03em">HANDOFF</div>
+</div>
+
+<div style="position:relative;transform:rotate(-3deg);display:flex;gap:28px;align-items:baseline">
+<div class="grande" style="color:#FFFFFF">ANOTA</div>
+<div class="grande" style="color:#FFC93C">AÍ!</div>
+</div>
+
+<div id="caixa-cartao" style="position:relative;width:936px;height:600px;display:flex;align-items:center;justify-content:center">
+<div data-caber="44,26" style="width:100%;box-sizing:border-box;background:#FFFFFF;border-radius:32px;box-shadow:0 0 0 6px #0A2472,14px 16px 0 6px #0A2472;padding:0.9em 1.1em;transform:rotate(1deg)">
+{{LINHAS}}
+</div>
+</div>
+
+<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;width:100%">
+{{PRAZO_BLOCO}}
+<div style="transform:rotate(-1.5deg);padding:20px 36px;background:#C6F24E;color:#0A2472;border-radius:999px;box-shadow:0 0 0 6px #0A2472,8px 10px 0 6px #0A2472;font-weight:900;font-size:34px;text-align:center;max-width:880px" data-caber-largura="34,22">{{INSCRICAO}}</div>
+<div style="width:100%;display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:700;color:#FFFFFF">
+<div>@handoff.med</div>
+<div>{{CREDITO}}</div>
+</div>
+</div>
+</div>
+<script>
+function caber(el, max, min) {
+  const caixa = el.parentElement;
+  let s = max;
+  el.style.fontSize = s + 'px';
+  while (s > min && (el.offsetHeight > caixa.clientHeight - 24 || el.scrollWidth > el.clientWidth + 1)) { s -= 2; el.style.fontSize = s + 'px'; }
+}
+function caberLargura(el, max, min, limite) {
+  let s = max;
+  el.style.fontSize = s + 'px';
+  while (s > min && (el.offsetWidth > limite || el.offsetHeight > 3 * s)) { s -= 2; el.style.fontSize = s + 'px'; }
+}
+window.ajustar = function () {
+  document.querySelectorAll('[data-caber]').forEach(function (el) { const v = el.dataset.caber.split(',').map(Number); caber(el, v[0], v[1]); });
+  document.querySelectorAll('[data-caber-largura]').forEach(function (el) { const v = el.dataset.caberLargura.split(',').map(Number); caberLargura(el, v[0], v[1], 900); });
+  return true;
+};
+</script>
+</body>
+</html>
