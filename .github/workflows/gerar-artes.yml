@@ -1,4 +1,5 @@
 # Gera as artes dos eventos do Handoff a partir da aba "Publicação" da planilha.
+# Também gera os stories diários da aba "Stories" (scripts/gerar_stories.py).
 # Roda duas vezes por hora (e pelo botão "Run workflow" em Actions). Só instala o navegador
 # quando há evento com arte nova para fazer. As imagens vão para posts/auto/<ID>/ e o
 # Apps Script usa os links públicos delas para publicar no Instagram.
@@ -10,7 +11,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["modelos/_evento/**", "scripts/gerar_eventos.py", ".github/workflows/gerar-artes.yml"]
+    paths: ["modelos/_evento/**", "modelos/_story/**", "scripts/gerar_eventos.py", "scripts/gerar_stories.py", ".github/workflows/gerar-artes.yml"]
 
 permissions:
   contents: write
@@ -39,8 +40,12 @@ jobs:
         # Mesma regra do gerador: textos mudaram ou o visual (ESTILO) mudou.
         run: python scripts/gerar_eventos.py --csv "$RUNNER_TEMP/fila.csv" --checar >> "$GITHUB_OUTPUT"
 
+      - name: Ver se tem story diário novo (aba Stories)
+        id: stories
+        run: echo "tem=$(python scripts/gerar_stories.py --checar | sed 's/^tem=//')" >> "$GITHUB_OUTPUT"
+
       - name: Instalar o navegador
-        if: steps.fila.outputs.tem == '1'
+        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1'
         run: |
           pip install --quiet playwright pillow
           python -m playwright install --with-deps chromium
@@ -49,13 +54,17 @@ jobs:
         if: steps.fila.outputs.tem == '1'
         run: python scripts/gerar_eventos.py --csv "$RUNNER_TEMP/fila.csv"
 
+      - name: Gerar os stories diários
+        if: steps.stories.outputs.tem == '1'
+        run: python scripts/gerar_stories.py
+
       - name: Salvar no repositório
-        if: steps.fila.outputs.tem == '1'
+        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1'
         run: |
           git config user.name "handoff-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add posts/auto
+          git add posts/auto posts/stories
           if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
-          git commit -m "Artes automáticas dos eventos"
+          git commit -m "Artes automáticas (eventos e stories)"
           git pull --rebase --quiet
           git push
