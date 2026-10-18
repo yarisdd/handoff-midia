@@ -9,7 +9,7 @@
 @font-face{font-family:'Figtree';font-style:normal;font-weight:300 900;src:url(../../fontes/Figtree-latin.woff2) format('woff2')}
 body{margin:0}
 .mont{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900}
-.titulo{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;line-height:1.04;letter-spacing:-0.02em;color:#FFFFFF;-webkit-text-stroke:12px #0A2472;paint-order:stroke fill;text-shadow:0 3px 0 #0A2472,0 6px 0 #0A2472,0 9px 0 #0A2472,0 12px 0 #0A2472,0 15px 0 #0A2472;text-transform:uppercase;text-align:center;width:100%;overflow-wrap:break-word}
+.titulo{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;line-height:1.04;letter-spacing:-0.02em;color:#FFFFFF;-webkit-text-stroke:12px #0A2472;paint-order:stroke fill;text-shadow:0 3px 0 #0A2472,0 6px 0 #0A2472,0 9px 0 #0A2472,0 12px 0 #0A2472,0 15px 0 #0A2472;text-transform:uppercase;text-align:center;width:100%}
 </style>
 </head>
 <body>
@@ -45,11 +45,14 @@ body{margin:0}
 </div>
 <script>
 // Diminui o texto até caber na caixa (títulos longos, datas longas).
+// Palavra comprida (ex.: INTERLIGAS) diminui a letra em vez de quebrar no meio; só quebra se nem no mínimo couber.
 function caber(el, max, min) {
   const caixa = el.parentElement;
   let s = max;
+  el.style.overflowWrap = 'normal';
   el.style.fontSize = s + 'px';
   while (s > min && (el.offsetHeight > caixa.clientHeight - 20 || el.scrollWidth > el.clientWidth + 1)) { s -= 4; el.style.fontSize = s + 'px'; }
+  if (el.scrollWidth > el.clientWidth + 1) el.style.overflowWrap = 'anywhere';
 }
 function caberLargura(el, max, min, limite) {
   let s = max;
