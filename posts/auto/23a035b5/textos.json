@@ -3,12 +3,13 @@
  "data": "Inscrições até 10/11",
  "etiqueta": "Congresso",
  "horario": "",
- "inscricao": "Link na bio da @handoff.med",
+ "inscricao": "Inscrições em pesquisaic.animaeducacao.com.br",
  "lembrete": "Inscrições acabam amanhã",
  "local": "",
  "organizacao": "Ecossistema Ânima",
  "prazo": "",
- "publico": "Estudantes da Unisul e Ânima",
+ "publico": "Estudantes da Unisul e Ecossistema Ânima",
  "titulo": "II CONCITEC",
- "valor": ""
+ "valor": "",
+ "versao": 2
 }

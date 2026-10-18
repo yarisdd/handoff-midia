@@ -1,14 +1,15 @@
 {
  "arroba": "@lamasto.unisul",
  "data": "26/10 · Seg",
- "etiqueta": "Aula Especial",
+ "etiqueta": "Aula especial",
  "horario": "17h30",
- "inscricao": "Link na bio do @handoff.med",
+ "inscricao": "Link na bio da @lamasto.unisul",
  "lembrete": "Inscrições acabam amanhã",
- "local": "Unisul Pedra Branca",
+ "local": "",
  "organizacao": "LAMASTO e LACIP",
  "prazo": "Inscrições até 23/10",
- "publico": "Estudantes e interessados",
- "titulo": "Câncer de Mama e Reconstrução",
- "valor": ""
+ "publico": "Certificado de horas extracurriculares",
+ "titulo": "Câncer de Mama e Reconstrução Mamária",
+ "valor": "",
+ "versao": 2
 }

@@ -1,14 +1,15 @@
 {
  "arroba": "@licmuunisul",
- "data": "20 e 21/10/2026",
+ "data": "20 e 21/10",
  "etiqueta": "Jornada",
  "horario": "a partir das 18h",
- "inscricao": "Link na bio da @licmu.unisul",
+ "inscricao": "Link na bio da @licmuunisul",
  "lembrete": "É amanhã!",
  "local": "Auditório G",
  "organizacao": "LICMU",
  "prazo": "",
- "publico": "0,5 ponto na prova de estágio",
- "titulo": "X Jornada Acadêmica da LICMU",
- "valor": "R$ 20"
+ "publico": "Estudantes de medicina",
+ "titulo": "X Jornada Acadêmica",
+ "valor": "R$ 20",
+ "versao": 2
 }

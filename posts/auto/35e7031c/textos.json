@@ -3,12 +3,13 @@
  "data": "20/10 · Ter",
  "etiqueta": "Aula aberta",
  "horario": "17h30",
- "inscricao": "Link na bio da @handoff.med",
+ "inscricao": "Link na bio da @unisul.lao",
  "lembrete": "É amanhã!",
  "local": "",
  "organizacao": "LAO",
  "prazo": "",
- "publico": "Ligantes e não ligantes",
+ "publico": "Estudantes e profissionais",
  "titulo": "Oftalmologia p/ Médicos Generalistas",
- "valor": "R$ 5 (não ligantes)"
+ "valor": "R$ 5 (não ligantes)",
+ "versao": 2
 }

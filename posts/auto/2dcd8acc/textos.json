@@ -1,14 +1,15 @@
 {
  "arroba": "@coliga_unisulpb",
  "data": "26 a 29/10",
- "etiqueta": "Simpósio",
+ "etiqueta": "Semana Acadêmica",
  "horario": "",
- "inscricao": "Link na bio do @handoff.med",
+ "inscricao": "Link na bio da @coliga_unisulpb",
  "lembrete": "É amanhã!",
- "local": "Unisul Pedra Branca",
+ "local": "",
  "organizacao": "COLIGA – Conselho das Ligas",
  "prazo": "",
- "publico": "Estudantes e comunidade acadêmica",
+ "publico": "",
  "titulo": "INTERLIGAS 2026",
- "valor": ""
+ "valor": "",
+ "versao": 2
 }
