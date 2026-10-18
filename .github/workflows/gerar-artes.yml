@@ -36,31 +36,13 @@ jobs:
 
       - name: Ver se tem arte nova para gerar
         id: fila
-        run: |
-          pip install --quiet pillow
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import csv, json, os, pathlib
-          tem = 0
-          with open(os.path.join(os.environ["RUNNER_TEMP"], "fila.csv"), encoding="utf-8") as f:
-              for linha in csv.DictReader(f):
-                  textos = (linha.get("Textos da arte") or "").strip()
-                  if not textos:
-                      continue
-                  try:
-                      atual = json.dumps(json.loads(textos), ensure_ascii=False, sort_keys=True, indent=1)
-                  except json.JSONDecodeError:
-                      continue
-                  arq = pathlib.Path("posts/auto") / linha.get("ID", "").strip() / "textos.json"
-                  if not arq.exists() or arq.read_text(encoding="utf-8") != atual:
-                      tem = 1
-                      break
-          print(f"tem={tem}")
-          PY
+        # Mesma regra do gerador: textos mudaram ou o visual (ESTILO) mudou.
+        run: python scripts/gerar_eventos.py --csv "$RUNNER_TEMP/fila.csv" --checar >> "$GITHUB_OUTPUT"
 
       - name: Instalar o navegador
         if: steps.fila.outputs.tem == '1'
         run: |
-          pip install --quiet playwright
+          pip install --quiet playwright pillow
           python -m playwright install --with-deps chromium
 
       - name: Gerar as artes

@@ -6,6 +6,10 @@ Para cada linha com a coluna "Textos da arte" preenchida, lê o JSON dela
     slide-2.jpg  detalhes (1080x1350)
     story.jpg    lembrete da véspera (1080x1920)
     textos.json  os textos usados (se mudarem na planilha, a arte é refeita)
+    estilo.txt   versão do visual (se ESTILO mudar aqui, a arte é refeita)
+
+A cor e a etiqueta da arte saem da categoria do evento (Estágio, Workshop, Evento científico,
+Palestra ou, se nada bater, a etiqueta original em laranja) — ver CATEGORIAS.
 
 Uso:
     python3 scripts/gerar_eventos.py                 # lê a planilha (precisa estar com "qualquer pessoa com o link")
@@ -17,7 +21,6 @@ Roda sozinho pelo GitHub Actions (.github/workflows/gerar-artes.yml).
 import argparse
 import asyncio
 import csv
-import hashlib
 import html
 import io
 import json
@@ -25,6 +28,7 @@ import os
 import re
 import shutil
 import sys
+import unicodedata
 import urllib.request
 from pathlib import Path
 
@@ -37,8 +41,21 @@ PLANILHA = os.environ.get("HANDOFF_PLANILHA", "1CKy25A_WejA8AvJMhS4jfxIJnngdGHLK
 ABA_GID = os.environ.get("HANDOFF_ABA_GID", "251176273")  # aba "Publicação"
 MAX_POR_RODADA = 20
 
-# (fundo, detalhe do canto) — mesma paleta dos posts feitos à mão
-PALETA = [("#1D3FC4", "#F7941D"), ("#8C86E6", "#FFC93C"), ("#3FA0F0", "#1D3FC4"), ("#3FB67A", "#FFC93C")]
+# Cada tipo de oportunidade tem cor fixa, para o perfil ficar separado por categoria.
+# (etiqueta da arte, fundo, detalhe do canto, palavras-chave sem acento). A primeira que bater vence,
+# por isso "Aula prática" cai em WORKSHOP antes de PALESTRA.
+CATEGORIAS = [
+    ("ESTÁGIO", "#3FB67A", "#FFC93C", r"estagio|observership|vivencia|plantao"),
+    ("WORKSHOP", "#1D3FC4", "#F7941D", r"workshop|oficina|hands.?on|pratic|treinamento|simulac|capacitac"),
+    ("EVENTO CIENTÍFICO", "#3FA0F0", "#1D3FC4",
+     r"jornada|simposio|congresso|semana academica|interligas|encontro|forum|\bmostra|conferencia|seminario|coloquio|cientific"),
+    ("PALESTRA", "#8C86E6", "#FFC93C",
+     r"palestra|\baula|\bcurso|minicurso|webinar|\blive\b|roda.?de.?conversa|mesa.?redonda|bate.?papo|discussao.?de.?caso|clube.?de.?revista"),
+]
+# O que não é nenhum dos quatro (processo seletivo de liga, bolsa, pesquisa...) mantém a etiqueta do Gemini.
+OUTRA = ("OPORTUNIDADE", "#F7941D", "#1D3FC4")
+# Mude este valor quando o visual mudar: o workflow refaz as artes de todos os eventos da fila.
+ESTILO = "cores-por-categoria-1"
 
 ICONES = {
     "data": '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
@@ -55,6 +72,27 @@ def esc(v) -> str:
     return html.escape(str(v or "").strip())
 
 
+def sem_acento(v) -> str:
+    texto = unicodedata.normalize("NFKD", str(v or ""))
+    return "".join(c for c in texto if not unicodedata.combining(c)).lower()
+
+
+def categoria(t: dict):
+    """(etiqueta, fundo, detalhe) do evento, a partir da etiqueta que o Gemini escreveu.
+
+    O título só é usado para achar estágio (ex.: etiqueta "Processo seletivo", título "Estágios HGCR"):
+    nome de liga no título ("Liga de ... e Simulação") confundiria as outras categorias.
+    """
+    etiqueta = sem_acento(t.get("etiqueta"))
+    for nome, fundo, detalhe, padrao in CATEGORIAS:
+        if re.search(padrao, etiqueta):
+            return nome, fundo, detalhe
+    nome, fundo, detalhe, padrao = CATEGORIAS[0]
+    if re.search(padrao, sem_acento(t.get("titulo"))):
+        return nome, fundo, detalhe
+    return (str(t.get("etiqueta") or "").strip().upper() or OUTRA[0]), OUTRA[1], OUTRA[2]
+
+
 def baixar_fila() -> str:
     url = f"https://docs.google.com/spreadsheets/d/{PLANILHA}/export?format=csv&gid={ABA_GID}"
     with urllib.request.urlopen(url, timeout=60) as r:
@@ -69,12 +107,12 @@ def itens_pendentes(texto_csv: str, forcar: bool):
             continue
         id_ = str(linha.get("ID", "")).strip()
         if not re.fullmatch(r"[A-Za-z0-9_-]{4,40}", id_):
-            print(f"pulei ID inválido: {id_!r}")
+            print(f"pulei ID inválido: {id_!r}", file=sys.stderr)
             continue
         try:
             textos = json.loads(linha.get("Textos da arte") or "{}")
         except json.JSONDecodeError:
-            print(f"{id_}: 'Textos da arte' não é JSON válido")
+            print(f"{id_}: 'Textos da arte' não é JSON válido", file=sys.stderr)
             continue
         # textos.json guarda exatamente o que veio da planilha: é com ele que o Apps Script confere se a arte está em dia.
         yield id_, textos
@@ -88,9 +126,8 @@ def preencher(modelo: str, campos: dict) -> str:
 
 
 def montar_htmls(id_: str, t: dict) -> dict:
-    n = int(hashlib.md5(id_.encode()).hexdigest(), 16)
-    cor, detalhe = PALETA[n % len(PALETA)]
-    cor2 = PALETA[(n + 1) % len(PALETA)][0]
+    etiqueta, cor, detalhe = categoria(t)
+    cor2 = cor  # capa, detalhes e story na mesma cor: a cor diz o tipo
 
     org = esc(t.get("organizacao"))
     arroba = esc(t.get("arroba"))
@@ -125,7 +162,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
 
     return {
         "slide-1": (preencher("capa.html", {
-            "COR": cor, "COR_DETALHE": detalhe, "ETIQUETA": esc(t.get("etiqueta")) or "OPORTUNIDADE",
+            "COR": cor, "COR_DETALHE": detalhe, "ETIQUETA": esc(etiqueta),
             "TITULO": esc(t.get("titulo")), "ORGANIZACAO": org_pilula, "DATA": data_capa or "EM BREVE",
         }), 1080, 1350),
         "slide-2": (preencher("detalhes.html", {
@@ -166,6 +203,7 @@ async def renderizar(trabalhos):
                     await pagina.close()
                     Image.open(png).convert("RGB").save(destino / f"{nome}.jpg", quality=90, optimize=True)
                 (destino / "textos.json").write_text(json.dumps(textos, ensure_ascii=False, sort_keys=True, indent=1), encoding="utf-8")
+                (destino / "estilo.txt").write_text(ESTILO + "\n", encoding="utf-8")
                 feitos.append(id_)
             except Exception as e:  # um evento com problema não trava os outros
                 erros.append(f"{id_}: {e}")
@@ -173,20 +211,33 @@ async def renderizar(trabalhos):
     return feitos, erros
 
 
+def arte_em_dia(id_: str, textos: dict) -> bool:
+    """A arte está em dia se os textos não mudaram e ela foi feita com o visual atual (ESTILO)."""
+    pasta = SAIDA / id_
+    canonico = json.dumps(textos, ensure_ascii=False, sort_keys=True, indent=1)
+    try:
+        return ((pasta / "textos.json").read_text(encoding="utf-8") == canonico
+                and (pasta / "estilo.txt").read_text(encoding="utf-8").strip() == ESTILO)
+    except FileNotFoundError:
+        return False
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv", help="CSV da aba Publicação (em vez de baixar da planilha)")
     ap.add_argument("--forcar", action="store_true", help="refaz mesmo sem mudança nos textos")
+    ap.add_argument("--checar", action="store_true", help="só escreve tem=1 ou tem=0 (usado pelo workflow)")
     args = ap.parse_args()
 
     texto_csv = Path(args.csv).read_text(encoding="utf-8") if args.csv else baixar_fila()
     trabalhos = []
     for id_, textos in itens_pendentes(texto_csv, args.forcar):
-        atual = SAIDA / id_ / "textos.json"
-        canonico = json.dumps(textos, ensure_ascii=False, sort_keys=True, indent=1)
-        if not args.forcar and atual.exists() and atual.read_text(encoding="utf-8") == canonico:
+        if not args.forcar and arte_em_dia(id_, textos):
             continue
         trabalhos.append((id_, textos))
+    if args.checar:
+        print(f"tem={1 if trabalhos else 0}")
+        return 0
     trabalhos = trabalhos[:MAX_POR_RODADA]
     if not trabalhos:
         print("Nada novo para gerar.")
