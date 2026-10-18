@@ -63,9 +63,24 @@ ICONES = {
     "local": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
     "valor": '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>',
     "publico": '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+    "horas": '<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
 }
-ROTULOS = {"data": "Quando", "horario": "Horário", "local": "Onde", "valor": "Investimento", "publico": "Vale saber"}  # público, vagas, certificado...
-CORES_ICONE = {"data": "#C6F24E", "horario": "#FFC93C", "local": "#3FA0F0", "valor": "#8C86E6", "publico": "#3FB67A"}
+ROTULOS = {"data": "Quando", "horario": "Horário", "local": "Onde", "valor": "Investimento",
+           "horas": "Horas complementares", "publico": "Vale saber"}  # público, vagas...
+CORES_ICONE = {"data": "#C6F24E", "horario": "#FFC93C", "local": "#3FA0F0", "valor": "#8C86E6",
+               "horas": "#F7941D", "publico": "#3FB67A"}
+
+# Manual do Aluno da Medicina Unisul: cada evento/experiência vale no máximo 40 h complementares.
+TETO_HORAS = 40
+# Selo da capa e do story (canto de cima, à esquerda): fica por cima do layout, sem empurrar nada,
+# então as posições da marcação dos perfis no Apps Script (PUB_MARCACAO) continuam valendo.
+SELO_HORAS = (
+    '<div style="position:absolute;z-index:3;left:{x}px;top:{y}px;transform:rotate(-8deg);padding:14px 22px 16px;'
+    'background:#C6F24E;color:#0A2472;border:6px solid #FFFFFF;border-radius:22px;'
+    'box-shadow:0 0 0 5px #0A2472,8px 10px 0 5px #0A2472;text-align:center">'
+    '<div class="mont" style="font-size:{g}px;line-height:0.95">+{h}</div>'
+    '<div class="mont" style="font-size:{p}px;line-height:1;margin-top:6px;letter-spacing:0.02em">COMPLEMENTARES</div></div>'
+)
 
 
 def esc(v) -> str:
@@ -118,6 +133,24 @@ def itens_pendentes(texto_csv: str, forcar: bool):
         yield id_, textos
 
 
+def horas(t: dict):
+    """(horas que contam, horas do certificado), ou (None, None) quando o post não diz.
+
+    O Apps Script só preenche "horas" quando a carga horária está escrita no post da liga.
+    """
+    m = re.search(r"\d+(?:[.,]\d+)?", str(t.get("horas") or ""))
+    if not m:
+        return None, None
+    h = float(m.group().replace(",", "."))
+    if h <= 0:
+        return None, None
+    return min(h, TETO_HORAS), h
+
+
+def fmt_horas(h: float) -> str:
+    return f"{h:.1f}".rstrip("0").rstrip(".").replace(".", ",") + "h"
+
+
 def preencher(modelo: str, campos: dict) -> str:
     texto = (MODELOS / modelo).read_text(encoding="utf-8")
     for chave, valor in campos.items():
@@ -138,9 +171,22 @@ def montar_htmls(id_: str, t: dict) -> dict:
     prazo = esc(t.get("prazo"))
     inscricao = esc(t.get("inscricao")) or (f"Inscrições no perfil da {arroba}" if arroba else "Mais informações no perfil da organização")
 
+    conta, certificado = horas(t)
+    if conta is None:
+        horas_txt = ""
+    elif certificado > TETO_HORAS:
+        horas_txt = f"{fmt_horas(certificado)} no certificado · contam {fmt_horas(conta)}"
+    else:
+        horas_txt = f"{fmt_horas(conta)} no certificado"
+
+    def selo(x, y, grande, pequeno):
+        if conta is None:
+            return ""
+        return SELO_HORAS.format(x=x, y=y, g=grande, p=pequeno, h=fmt_horas(conta).upper())
+
     linhas = []
-    for chave in ["data", "horario", "local", "valor", "publico"]:
-        valor = esc(t.get(chave))
+    for chave in ["data", "horario", "local", "valor", "horas", "publico"]:
+        valor = horas_txt if chave == "horas" else esc(t.get(chave))
         if not valor:
             continue
         linhas.append(
@@ -164,6 +210,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
         "slide-1": (preencher("capa.html", {
             "COR": cor, "COR_DETALHE": detalhe, "ETIQUETA": esc(etiqueta),
             "TITULO": esc(t.get("titulo")), "ORGANIZACAO": org_pilula, "DATA": data_capa or "EM BREVE",
+            "SELO_HORAS": selo(46, 128, 64, 19),
         }), 1080, 1350),
         "slide-2": (preencher("detalhes.html", {
             "COR": cor2, "LINHAS": "\n".join(linhas) or '<div class="valor">Detalhes no perfil da organização</div>',
@@ -173,6 +220,7 @@ def montar_htmls(id_: str, t: dict) -> dict:
             "COR": cor, "COR_DETALHE": detalhe, "CHAMADA": chamada, "TITULO": esc(t.get("titulo")),
             "CHAMADA_ESTILO": "white-space:nowrap" if len(chamada) <= 14 else "",
             "ORGANIZACAO": org_pilula, "PILULAS": pilulas, "INSCRICAO": inscricao,
+            "SELO_HORAS": selo(52, 236, 72, 21),
         }), 1080, 1920),
     }
 
