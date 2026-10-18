@@ -1,0 +1,76 @@
+# Gera as artes dos eventos do Handoff a partir da aba "Publicação" da planilha.
+# Roda duas vezes por hora (e pelo botão "Run workflow" em Actions). Só instala o navegador
+# quando há evento com arte nova para fazer. As imagens vão para posts/auto/<ID>/ e o
+# Apps Script usa os links públicos delas para publicar no Instagram.
+name: Gerar artes dos eventos
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gerar-artes
+  cancel-in-progress: false
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Baixar a fila de publicação
+        run: |
+          curl -sSfL "https://docs.google.com/spreadsheets/d/1CKy25A_WejA8AvJMhS4jfxIJnngdGHLKK7fP7tgpKgA/export?format=csv&gid=251176273" -o "$RUNNER_TEMP/fila.csv"
+
+      - name: Ver se tem arte nova para gerar
+        id: fila
+        run: |
+          pip install --quiet pillow
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import csv, json, os, pathlib
+          tem = 0
+          with open(os.path.join(os.environ["RUNNER_TEMP"], "fila.csv"), encoding="utf-8") as f:
+              for linha in csv.DictReader(f):
+                  textos = (linha.get("Textos da arte") or "").strip()
+                  if not textos:
+                      continue
+                  try:
+                      atual = json.dumps(json.loads(textos), ensure_ascii=False, sort_keys=True, indent=1)
+                  except json.JSONDecodeError:
+                      continue
+                  arq = pathlib.Path("posts/auto") / linha.get("ID", "").strip() / "textos.json"
+                  if not arq.exists() or arq.read_text(encoding="utf-8") != atual:
+                      tem = 1
+                      break
+          print(f"tem={tem}")
+          PY
+
+      - name: Instalar o navegador
+        if: steps.fila.outputs.tem == '1'
+        run: |
+          pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Gerar as artes
+        if: steps.fila.outputs.tem == '1'
+        run: python scripts/gerar_eventos.py --csv "$RUNNER_TEMP/fila.csv"
+
+      - name: Salvar no repositório
+        if: steps.fila.outputs.tem == '1'
+        run: |
+          git config user.name "handoff-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts/auto
+          if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
+          git commit -m "Artes automáticas dos eventos"
+          git pull --rebase --quiet
+          git push
