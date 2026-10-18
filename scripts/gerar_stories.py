@@ -2,7 +2,11 @@
 
 A aba é escrita pelo Apps Script (Publições.gs). Cada linha tem ID, Tipo e Textos (JSON). Tipos:
     pergunta  pergunta do dia (respostas pela barra de mensagem do story)
-    ligas     "hoje no feed das ligas": perfis das ligas que postaram no dia
+    ligas     story das 18:30, com o perfil da liga marcado em cada cartão. Dois formatos:
+              - modo "abertas" (atual): "Inscrições abertas", até 5 eventos por prazo mais perto.
+                Cada linha de "ligas" é  usuario|organização|evento|prazo|novo  (prazo: "até 23/10",
+                "até hoje", "até amanhã"; novo: "1" se o evento entrou hoje); "mais" = quantos sobraram.
+              - sem modo (antigo): "Nas ligas hoje", linhas  usuario|nome  das ligas que postaram no dia.
 
 Saída em posts/stories/<ID>/:
     story.jpg    1080x1920
@@ -94,6 +98,8 @@ def montar_html(id_: str, t: dict) -> str:
             "TAG": esc(t.get("tag") or "PERGUNTA DO DIA"), "PERGUNTA": esc(t.get("pergunta")),
             "OPCOES": bloco, "CTA": esc(t.get("cta") or "Responde aqui embaixo"),
         })
+    if t.get("modo") == "abertas":
+        return html_abertas(t, cor, detalhe)
     linhas = [l.split("|", 1) for l in str(t.get("ligas") or "").split("\n") if l.strip()]
     cartoes = []
     for i, partes in enumerate(linhas[:LIGAS_MAX]):
@@ -111,6 +117,36 @@ def montar_html(id_: str, t: dict) -> str:
         "TITULO_PAGINA": "Hoje no feed das ligas", "COR": cor, "COR_DETALHE": detalhe,
         "TAG": esc(t.get("tag") or "POSTOU HOJE"), "TITULO": esc(t.get("titulo") or "Nas ligas hoje"),
         "LIGAS": "\n".join(cartoes), "MAIS": mais, "CTA": esc(t.get("cta") or "Toca no perfil e confere"),
+    })
+
+
+def html_abertas(t: dict, cor: str, detalhe: str) -> str:
+    """Story "Inscrições abertas": cartões com evento, liga e prazo (mesma posição dos cartões das ligas)."""
+    linhas = [(l.split("|") + [""] * 5)[:5] for l in str(t.get("ligas") or "").split("\n") if l.strip()]
+    cartoes = []
+    for i, (user, org, evento, prazo, novo) in enumerate(linhas[:LIGAS_MAX]):
+        user, org, prazo = user.strip().lstrip("@"), org.strip(), prazo.strip()
+        quem = f"@{user}" + (f" · {org}" if org else "") if user else org
+        quando = re.sub(r"^até\s+", "", prazo, flags=re.I) or "—"
+        urgente = quando.lower() in ("hoje", "amanhã")
+        topo = LIGAS_TOPO + i * LIGAS_PASSO
+        rot = (-1.2, 1.0, -0.6, 1.3, -1.0)[i]
+        cartoes.append(
+            f'<div class="ev" style="top:{topo}px;height:{LIGAS_ALTURA}px;transform:rotate({rot}deg)">'
+            f'<div class="corpo"><div class="titulo">{esc(evento)}</div>'
+            + (f'<div class="quem">{esc(quem)}</div>' if quem else "") + "</div>"
+            f'<div class="prazo{" urgente" if urgente else ""}"><small>até</small><b>{esc(quando)}</b></div>'
+            + ('<div class="novo">NOVO</div>' if str(novo).strip() == "1" else "") + "</div>")
+    try:
+        resto = int(t.get("mais") or 0)
+    except ValueError:
+        resto = 0
+    mais = (f'<div style="font-weight:800;font-size:34px">+ {resto} evento{"s" if resto > 1 else ""} '
+            f'com inscrição aberta no perfil</div>' if resto > 0 else "")
+    return preencher("abertas.html", {
+        "TITULO_PAGINA": "Inscrições abertas", "COR": cor, "COR_DETALHE": detalhe,
+        "TAG": esc(t.get("tag") or "CORRE QUE DÁ TEMPO"), "TITULO": esc(t.get("titulo") or "Inscrições abertas"),
+        "EVENTOS": "\n".join(cartoes), "MAIS": mais, "CTA": esc(t.get("cta") or "Toca na liga e garante a vaga"),
     })
 
 
