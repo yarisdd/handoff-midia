@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47098/360.jpg",
+   "instituicao": "FIOCRUZ - PE",
+   "titulo": "Manejo Clínico das formas crônicas e epidemiologia da filariose"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "60",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45293/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Manejo da Coinfecção Tuberculose-HIV"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47104/360.jpg",
+   "instituicao": "FIOCRUZ - PE",
+   "titulo": "Vigilância em Saúde para a Eliminação da Esquistossomose"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "15",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47052/360.jpg",
+   "instituicao": "FIOCRUZ - PE",
+   "titulo": "Exames Laboratoriais para o Diagnóstico da Filariose Linfática"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47003/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Dengue: Casos Clínicos para Atualização do Manejo (2024)"
+  }
+ ],
+ "paleta": "azul",
+ "tema": "Infectologia",
+ "tipo": "cursos",
+ "versao": 1
+}
