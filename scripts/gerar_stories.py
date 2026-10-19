@@ -7,6 +7,9 @@ A aba é escrita pelo Apps Script (Publições.gs). Cada linha tem ID, Tipo e Te
                 Cada linha de "ligas" é  usuario|organização|evento|prazo|novo  (prazo: "até 23/10",
                 "até hoje", "até amanhã"; novo: "1" se o evento entrou hoje); "mais" = quantos sobraram.
               - sem modo (antigo): "Nas ligas hoje", linhas  usuario|nome  das ligas que postaram no dia.
+    vagas     story diário do buscador de vagas (aba "Vagas do site"), até 3 cartões. Cada linha de "vagas" é
+              categoria|título|instituição · local|rótulo|data|urgente   (rótulo: "até" ou "abre";
+              data: "25/10"; urgente: "1" se fecha em até 3 dias). "total" = vagas no site, "url" = endereço.
 
 Saída em posts/stories/<ID>/:
     story.jpg    1080x1920
@@ -65,7 +68,7 @@ def itens(texto_csv: str):
     for linha in csv.DictReader(io.StringIO(texto_csv)):
         id_ = str(linha.get("ID", "")).strip()
         tipo = str(linha.get("Tipo", "")).strip().lower()
-        if not re.fullmatch(r"[A-Za-z0-9_-]{4,40}", id_) or tipo not in ("pergunta", "ligas"):
+        if not re.fullmatch(r"[A-Za-z0-9_-]{4,40}", id_) or tipo not in ("pergunta", "ligas", "vagas"):
             continue
         try:
             textos = json.loads(linha.get("Textos") or "{}")
@@ -98,6 +101,8 @@ def montar_html(id_: str, t: dict) -> str:
             "TAG": esc(t.get("tag") or "PERGUNTA DO DIA"), "PERGUNTA": esc(t.get("pergunta")),
             "OPCOES": bloco, "CTA": esc(t.get("cta") or "Responde aqui embaixo"),
         })
+    if t["tipo"] == "vagas":
+        return html_vagas(t)
     if t.get("modo") == "abertas":
         return html_abertas(t, cor, detalhe)
     linhas = [l.split("|", 1) for l in str(t.get("ligas") or "").split("\n") if l.strip()]
@@ -147,6 +152,45 @@ def html_abertas(t: dict, cor: str, detalhe: str) -> str:
         "TITULO_PAGINA": "Inscrições abertas", "COR": cor, "COR_DETALHE": detalhe,
         "TAG": esc(t.get("tag") or "CORRE QUE DÁ TEMPO"), "TITULO": esc(t.get("titulo") or "Inscrições abertas"),
         "EVENTOS": "\n".join(cartoes), "MAIS": mais, "CTA": esc(t.get("cta") or "Toca na liga e garante a vaga"),
+    })
+
+
+# Story do buscador de vagas: 3 cartões grandes, cores das categorias do site.
+VAGAS_TOPO, VAGAS_PASSO, VAGAS_ALTURA, VAGAS_MAX = 640, 270, 230, 3
+CORES_CATEGORIA = {
+    "eletiva clínica": "#8C86E6", "curso de verão/inverno": "#F7941D", "estágio/observership": "#3FB67A",
+    "pesquisa": "#3FA0F0", "intercâmbio": "#FFFFFF", "evento científico": "#FFC93C", "bolsa": "#E8483B",
+    "curso online": "#C6F24E",
+}
+
+
+def html_vagas(t: dict) -> str:
+    linhas = [(l.split("|") + [""] * 6)[:6] for l in str(t.get("vagas") or "").split("\n") if l.strip()]
+    cartoes = []
+    for i, (cat, titulo, quem, rotulo, data, urgente) in enumerate(linhas[:VAGAS_MAX]):
+        cor = CORES_CATEGORIA.get(cat.strip().lower(), "#C6F24E")
+        rotulo = (rotulo.strip() or "até").lower()
+        classe = " urgente" if urgente.strip() == "1" else (" breve" if rotulo == "abre" else "")
+        topo = VAGAS_TOPO + i * VAGAS_PASSO
+        rot = (-1.2, 1.0, -0.6)[i]
+        cartoes.append(
+            f'<div class="vg" style="top:{topo}px;height:{VAGAS_ALTURA}px;transform:rotate({rot}deg)">'
+            f'<div class="corpo"><div class="cat"><i style="background:{cor}"></i>{esc(cat)}</div>'
+            f'<div class="titulo">{esc(titulo)}</div>'
+            + (f'<div class="quem">{esc(quem)}</div>' if quem.strip() else "") + "</div>"
+            f'<div class="prazo{classe}"><small>{esc(rotulo)}</small><b>{esc(data) or "—"}</b></div></div>')
+    try:
+        total = int(t.get("total") or 0)
+    except ValueError:
+        total = 0
+    resto = total - len(cartoes)
+    bloco_total = (f'<div class="mont" style="font-size:46px;text-align:center;line-height:1.1">+ {resto} oportunidade{"s" if resto > 1 else ""}<br>'
+                   f'no Brasil e no exterior</div>' if resto > 0 else "")
+    return preencher("vagas.html", {
+        "TITULO_PAGINA": "Vagas de medicina",
+        "TAG": esc(t.get("tag") or "BUSCADOR DE VAGAS"), "TITULO": esc(t.get("titulo") or "Vagas abertas"),
+        "VAGAS": "\n".join(cartoes), "TOTAL": bloco_total,
+        "CTA": esc(t.get("cta") or "Todas no link da bio"), "URL": esc(t.get("url") or ""),
     })
 
 
