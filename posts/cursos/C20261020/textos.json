@@ -15,25 +15,25 @@
    "titulo": "Manejo da Coinfecção Tuberculose-HIV"
   },
   {
-   "area": "Qualificação Profissional · Online",
-   "horas": "30",
-   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47104/360.jpg",
-   "instituicao": "FIOCRUZ - PE",
-   "titulo": "Vigilância em Saúde para a Eliminação da Esquistossomose"
-  },
-  {
-   "area": "Qualificação Profissional · Online",
-   "horas": "15",
-   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47052/360.jpg",
-   "instituicao": "FIOCRUZ - PE",
-   "titulo": "Exames Laboratoriais para o Diagnóstico da Filariose Linfática"
-  },
-  {
    "area": "Qualificação · Online",
    "horas": "10",
    "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47003/360.jpg",
    "instituicao": "FIOCRUZ - BRASÍLIA",
    "titulo": "Dengue: Casos Clínicos para Atualização do Manejo (2024)"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "60",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45805/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Manejo do Sarampo nos Serviços de Saúde"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "45",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47028/360.jpg",
+   "instituicao": "FIOCRUZ - MS",
+   "titulo": "Abordagem Clínica de Zika na Atenção Primária à Saúde"
   }
  ],
  "paleta": "azul",
