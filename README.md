@@ -22,3 +22,11 @@ textura de pontinhos e granulado, estrelinhas e rabiscos. Destaque verde-limão 
 
 Para corrigir o texto de uma arte: edite o JSON da coluna "Textos da arte" na aba Publicação. Na rodada seguinte
 a arte é refeita e o post usa a versão nova (se ainda não tiver sido publicado).
+
+## Carrossel diário de cursos gratuitos
+
+- `modelos/_cursos/` : capa ("Cursos gratuitos de <tema>"), um slide por curso (card do curso) e o fechamento
+  ("Comenta EU QUERO"). Formato inspirado no post de cursos gratuitos da @fisioeliza, com a identidade do Handoff
+- `scripts/gerar_cursos.py` : lê a aba "Cursos — Carrosséis" da planilha e gera `posts/cursos/<ID>/slide-N.jpg`
+- `apps-script/Cursos.gs` : catálogo da UNA-SUS (aba "Cursos"), tema e cursos do dia, publicação às 19h e
+  resposta por direct a quem comenta "eu quero" (aba "Cursos — Direct")

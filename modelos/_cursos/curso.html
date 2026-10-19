@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Curso</title>
+<!-- Modelo usado por scripts/gerar_cursos.py: um slide por curso, com o card do curso no estilo da plataforma. -->
+<link rel="stylesheet" href="base.css">
+<style>
+.card{position:absolute;left:90px;right:90px;top:290px;transform:rotate(-1.2deg);background:#FFFFFF;border-radius:26px;overflow:hidden;
+  box-shadow:0 0 0 6px var(--marinho),14px 16px 0 6px var(--marinho);color:#1F2937}
+.topo{position:relative;height:400px;background:#F3F4F6;overflow:hidden}
+.topo .bloco1{position:absolute;left:0;top:0;width:58%;height:30px;background:var(--cor)}
+.topo .bloco2{position:absolute;right:0;top:0;width:30%;height:100%;background:var(--faixa)}
+.topo .bloco3{position:absolute;left:0;bottom:0;width:36%;height:44%;background:#FDE7EC;opacity:0.9}
+.topo .foto{position:absolute;left:210px;top:56px;width:620px;height:349px;border-radius:6px;object-fit:cover;background:#E5E7EB;box-shadow:0 6px 18px rgba(0,0,0,0.18)}
+.topo .semfoto{position:absolute;left:210px;top:56px;width:620px;height:349px;border-radius:6px;background:var(--cor);display:none;align-items:center;justify-content:center;color:#FFFFFF;font-size:120px}
+.corpo{padding:30px 40px 34px}
+.codigo{font-size:30px;color:#6B7280;letter-spacing:0.02em;font-weight:600}
+.tit{margin-top:10px;font-size:46px;line-height:1.16;color:#1D4ED8;font-weight:700}
+.area{margin-top:12px;font-size:32px;color:#4B5563;font-weight:600}
+.botoes{display:flex;gap:18px;margin-top:28px;padding-top:24px;border-top:2px solid #E5E7EB}
+.btn{padding:16px 30px;border-radius:12px;font-size:30px;font-weight:800}
+.btn.ir{background:#1E3A8A;color:#FFFFFF}
+.btn.det{background:#E5E7EB;color:#374151}
+.tag{position:absolute;z-index:3;transform:rotate(-6deg);background:var(--limao);color:var(--marinho);padding:10px 22px 12px;border-radius:12px;font-size:40px;box-shadow:0 0 0 5px var(--marinho),7px 8px 0 5px var(--marinho)}
+.horas{position:absolute;z-index:3;right:52px;top:170px;transform:rotate(7deg);background:var(--amarelo);color:var(--marinho);border-radius:22px;padding:14px 24px 16px;text-align:center}
+.horas .n{font-size:76px;line-height:0.92}
+.horas .p{font-size:20px;letter-spacing:0.05em;margin-top:6px}
+.contador{position:absolute;left:72px;top:64px;font-size:30px;padding:10px 22px;border-radius:999px;background:#FFFFFF;color:var(--marinho);box-shadow:0 0 0 5px var(--marinho),6px 7px 0 5px var(--marinho)}
+</style>
+</head>
+<body>
+<div class="palco" style="--cor:{{COR}};--faixa:{{FAIXA}}">
+<svg class="grao" width="1080" height="1350" aria-hidden="true"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="1080" height="1350" filter="url(#g)"></rect></svg>
+
+<div class="marca mont" style="right:72px;top:62px"><div class="h">h</div><div class="nome">HANDOFF</div></div>
+<div class="mont contador">{{NUM}} / {{TOTAL}}</div>
+
+<!-- Estrela bordada atrás do card, como na referência. -->
+<svg class="estrela" style="left:24px;top:200px;transform:rotate(-14deg)" width="230" height="230" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="4" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+
+<div class="mont adesivo horas"><div class="n">{{HORAS}}</div><div class="p">CERTIFICADO</div></div>
+
+<div class="card">
+<div class="topo">
+<div class="bloco1"></div><div class="bloco2"></div><div class="bloco3"></div>
+<img class="foto" src="{{IMAGEM}}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="semfoto mont">h</div>
+</div>
+<div class="corpo">
+<div class="codigo">{{INSTITUICAO}}</div>
+<div class="tit" data-caber="46,32">{{TITULO}}</div>
+<div class="area">{{AREA}}</div>
+<div class="botoes"><div class="btn ir">Ir para o curso</div><div class="btn det">Detalhes</div></div>
+</div>
+</div>
+<div class="mont tag" style="left:420px;top:{{TAG_TOPO}}px">@handoff.med</div>
+
+<!-- Megafone (o da referência é uma foto recortada; aqui é desenho no traço do Handoff). -->
+<svg style="position:absolute;left:40px;bottom:26px;transform:rotate(-14deg)" width="190" height="140" viewBox="0 0 230 170" aria-hidden="true">
+<path d="M30 70 L150 20 L150 150 L30 100 Z" fill="#FFFFFF" stroke="#0A2472" stroke-width="7" stroke-linejoin="round"/>
+<rect x="8" y="62" width="34" height="46" rx="8" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="7"/>
+<path d="M58 100 L70 140 L96 134 L86 108" fill="#FFFFFF" stroke="#0A2472" stroke-width="7" stroke-linejoin="round"/>
+<path d="M172 50 l30 -16 M178 85 h34 M172 120 l30 16" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+</svg>
+<div class="rodape" style="justify-content:flex-end"><div style="color:var(--limao)">Comenta EU QUERO 💬</div></div>
+</div>
+<script>
+function caber(el, max, min) {
+  let s = max;
+  el.style.fontSize = s + 'px';
+  while (s > min && el.offsetHeight > s * 1.16 * 3 + 4) { s -= 2; el.style.fontSize = s + 'px'; }
+}
+window.ajustar = function () {
+  document.querySelectorAll('[data-caber]').forEach(function (el) { const v = el.dataset.caber.split(',').map(Number); caber(el, v[0], v[1]); });
+  // O adesivo @handoff.med fica em cima da linha da área, como o @ da referência.
+  const area = document.querySelector('.area').getBoundingClientRect();
+  document.querySelector('.tag').style.top = Math.round(area.top - 6) + 'px';
+  return true;
+};
+</script>
+</body>
+</html>

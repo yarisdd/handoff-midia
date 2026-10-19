@@ -1,0 +1,19 @@
+/* Visual comum do carrossel de cursos (modelos/_cursos). Formato inspirado no post "cursos gratuitos"
+   da @fisioeliza (capa com adesivo de estrela, um slide por curso com o card da plataforma, fundo listrado),
+   com a identidade do Handoff: cores chapadas, Montserrat Black Italic com contorno azul-marinho e sombra dura. */
+@font-face{font-family:'Montserrat';font-style:italic;font-weight:100 900;src:url(../../fontes/Montserrat-Italic-latin.woff2) format('woff2')}
+@font-face{font-family:'Figtree';font-style:normal;font-weight:300 900;src:url(../../fontes/Figtree-latin.woff2) format('woff2')}
+:root{--marinho:#0A2472;--limao:#C6F24E;--amarelo:#FFC93C;--azul:#1D3FC4}
+body{margin:0}
+.mont{font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900}
+.palco{position:relative;overflow:hidden;width:1080px;height:1350px;box-sizing:border-box;font-family:'Figtree',sans-serif;color:#FFFFFF;
+  background:repeating-linear-gradient(90deg,var(--cor) 0 48px,var(--faixa) 48px 96px)}
+.grao{position:absolute;left:0;top:0;opacity:0.28;mix-blend-mode:overlay;pointer-events:none}
+.contorno{-webkit-text-stroke:12px var(--marinho);paint-order:stroke fill;
+  text-shadow:0 3px 0 var(--marinho),0 6px 0 var(--marinho),0 9px 0 var(--marinho),0 12px 0 var(--marinho),0 15px 0 var(--marinho)}
+.adesivo{border:6px solid #FFFFFF;box-shadow:0 0 0 5px var(--marinho),8px 10px 0 5px var(--marinho)}
+.estrela{position:absolute;pointer-events:none}
+.marca{position:absolute;display:flex;align-items:center;gap:12px}
+.marca .h{width:50px;height:50px;border-radius:13px;background:#FFFFFF;color:var(--azul);display:flex;align-items:center;justify-content:center;font-size:34px}
+.marca .nome{font-size:30px;letter-spacing:0.03em}
+.rodape{position:absolute;left:72px;right:72px;bottom:52px;display:flex;justify-content:space-between;align-items:center;font-size:26px;font-weight:800;text-shadow:0 2px 0 rgba(10,36,114,0.45)}

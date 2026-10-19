@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Comenta EU QUERO</title>
+<!-- Último slide do carrossel de cursos: chamada para comentar e receber os links por direct. -->
+<link rel="stylesheet" href="base.css">
+<style>
+.t{position:absolute;left:60px;right:60px;text-align:center;text-transform:uppercase;letter-spacing:-0.02em;line-height:1.0}
+.balao{position:absolute;left:150px;right:150px;top:530px;transform:rotate(-3deg);background:var(--limao);color:var(--marinho);border-radius:40px;padding:44px 30px 48px;text-align:center;
+  box-shadow:0 0 0 7px var(--marinho),16px 18px 0 7px var(--marinho)}
+.balao:after{content:'';position:absolute;left:120px;bottom:-62px;width:70px;height:70px;background:var(--limao);transform:skewX(-28deg);
+  border-right:7px solid var(--marinho);border-bottom:7px solid var(--marinho);clip-path:polygon(0 0,100% 0,100% 100%)}
+.balao .q{font-size:128px;line-height:0.92;white-space:nowrap}
+.lista{position:absolute;left:110px;right:110px;top:880px;display:flex;flex-direction:column;gap:20px}
+.item{display:flex;align-items:center;gap:22px;background:#FFFFFF;color:var(--marinho);border-radius:18px;padding:18px 26px;font-size:34px;font-weight:800;
+  box-shadow:0 0 0 5px var(--marinho),8px 9px 0 5px var(--marinho)}
+.item b{flex:0 0 auto;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--amarelo);border:4px solid var(--marinho);font-family:'Montserrat',sans-serif;font-style:italic;font-weight:900;font-size:30px}
+</style>
+</head>
+<body>
+<div class="palco" style="--cor:{{COR}};--faixa:{{FAIXA}}">
+<svg class="grao" width="1080" height="1350" aria-hidden="true"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="1080" height="1350" filter="url(#g)"></rect></svg>
+<div class="marca mont" style="left:50%;transform:translateX(-50%);top:62px"><div class="h">h</div><div class="nome">HANDOFF</div></div>
+
+<svg class="estrela" style="left:50px;top:170px;transform:rotate(-14deg)" width="130" height="130" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="5" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+<svg class="estrela" style="left:900px;top:420px;transform:rotate(16deg)" width="110" height="110" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="5" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+
+<div class="mont contorno t" style="top:200px;font-size:120px">Quer os<br>links?</div>
+<div class="balao"><div style="font-weight:800;font-size:36px;letter-spacing:0.02em;margin-bottom:10px">COMENTA</div><div class="mont q">EU QUERO</div></div>
+
+<div class="lista">
+<div class="item"><b>1</b><span>Comenta <u>EU QUERO</u> aqui no post</span></div>
+<div class="item"><b>2</b><span>A gente te manda os {{TOTAL}} links no direct</span></div>
+<div class="item"><b>3</b><span>Salva o post pra não perder 📌</span></div>
+</div>
+<div class="rodape"><div>@handoff.med</div><div style="color:var(--limao)">Cursos da UNA-SUS · gratuitos</div></div>
+</div>
+<script>window.ajustar = function () { return true; };</script>
+</body>
+</html>

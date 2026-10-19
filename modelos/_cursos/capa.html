@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Capa — cursos gratuitos</title>
+<!-- Modelo usado por scripts/gerar_cursos.py. Campos {{...}} vêm da aba "Cursos — Carrosséis" da planilha. -->
+<link rel="stylesheet" href="base.css">
+<style>
+.titulo{position:absolute;left:50px;right:50px;top:470px;height:540px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-3deg)}
+.t1{font-size:136px;line-height:0.98;letter-spacing:-0.02em;text-transform:uppercase}
+.t2{margin-top:18px;line-height:1.04;letter-spacing:-0.02em;text-transform:uppercase;color:var(--limao);width:980px}
+.t2 small{display:block;font-size:0.62em;color:#FFFFFF;margin-bottom:6px}
+.caixa{position:absolute;left:96px;right:96px;bottom:118px;transform:rotate(-1.5deg);background:#FFFFFF;color:var(--marinho);border-radius:22px;
+  box-shadow:0 0 0 6px var(--marinho),12px 14px 0 6px var(--marinho);padding:26px 38px 28px;text-align:center}
+.caixa .l1{font-size:40px;line-height:1.12;font-weight:600}
+.caixa .l1 b{font-weight:900;color:var(--azul)}
+.caixa .l2{margin-top:10px;font-size:32px;font-weight:800;color:#1D3FC4}
+.selo-n{position:absolute;right:70px;top:150px;transform:rotate(8deg);background:var(--amarelo);color:var(--marinho);border-radius:20px;padding:14px 26px 16px;text-align:center}
+.selo-n .n{font-size:84px;line-height:0.9}
+.selo-n .p{font-size:22px;letter-spacing:0.06em;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="palco" style="--cor:{{COR}};--faixa:{{FAIXA}}">
+<svg class="grao" width="1080" height="1350" aria-hidden="true"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"></feTurbulence></filter><rect width="1080" height="1350" filter="url(#g)"></rect></svg>
+
+<!-- Estrelas "bordadas" espalhadas (no post de referência ficam em volta do título). -->
+<svg class="estrela" style="left:830px;top:470px;transform:rotate(14deg)" width="150" height="150" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="5" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+<svg class="estrela" style="left:40px;top:1010px;transform:rotate(-12deg)" width="120" height="120" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="5" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+<svg class="estrela" style="left:900px;top:1000px;transform:rotate(-20deg)" width="96" height="96" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="{{COR_ESTRELA}}" stroke="#0A2472" stroke-width="5" stroke-linejoin="round"/><polygon points="50,15 58.9,40 85,40.4 64.4,56.3 71.9,81.3 50,66.2 28.1,81.3 35.6,56.3 15,40.4 41.1,40" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-dasharray="5 5" stroke-linejoin="round"/></svg>
+
+<!-- Estrelona com o "h" do Handoff (no lugar da foto da referência). -->
+<svg class="estrela" style="left:28px;top:40px;transform:rotate(-8deg);filter:drop-shadow(10px 12px 0 #0A2472)" width="470" height="470" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,4 61.8,36.5 96,36.9 68.9,57.8 78.8,90.6 50,71 21.2,90.6 31.1,57.8 4,36.9 38.2,36.5" fill="#FFF6E0" stroke="#0A2472" stroke-width="2.6" stroke-linejoin="round"/></svg>
+<div class="mont adesivo" style="position:absolute;left:170px;top:200px;width:180px;height:180px;border-radius:44px;background:var(--azul);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:150px;line-height:1;transform:rotate(-8deg)">h</div>
+
+<div class="mont adesivo selo-n"><div class="n">{{TOTAL}}</div><div class="p">CURSOS</div></div>
+
+<div class="titulo">
+<div class="mont contorno t1">Cursos<br>gratuitos</div>
+<div class="mont contorno t2" data-caber="112,56"><small>de</small>{{TEMA}}</div>
+</div>
+
+<div class="caixa">
+<div class="l1">que todo estudante de <b>medicina</b> deveria fazer</div>
+<div class="l2">(online e com certificado)</div>
+</div>
+
+<div class="rodape"><div>@handoff.med</div>
+<div style="display:flex;align-items:center;gap:12px;color:var(--limao)">Arraste
+<svg width="50" height="22" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h50M42 2l10 10-10 10"></path></svg></div></div>
+</div>
+<script>
+function caber(el, max, min) {
+  let s = max;
+  el.style.fontSize = s + 'px';
+  // Tema comprido diminui a letra; no máximo duas linhas.
+  const caixa = el.parentElement;
+  while (s > min && (el.offsetHeight > s * 2.9 || el.scrollWidth > el.clientWidth + 1 || caixa.scrollHeight > caixa.clientHeight)) { s -= 4; el.style.fontSize = s + 'px'; }
+}
+window.ajustar = function () {
+  document.querySelectorAll('[data-caber]').forEach(function (el) { const v = el.dataset.caber.split(',').map(Number); caber(el, v[0], v[1]); });
+  return true;
+};
+</script>
+</body>
+</html>

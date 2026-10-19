@@ -1,5 +1,6 @@
 # Gera as artes dos eventos do Handoff a partir da aba "Publicação" da planilha.
-# Também gera os stories diários da aba "Stories" (scripts/gerar_stories.py).
+# Também gera os stories diários da aba "Stories" (scripts/gerar_stories.py) e os carrosséis
+# diários de cursos gratuitos da aba "Cursos — Carrosséis" (scripts/gerar_cursos.py).
 # Roda duas vezes por hora (e pelo botão "Run workflow" em Actions). Só instala o navegador
 # quando há evento com arte nova para fazer. As imagens vão para posts/auto/<ID>/ e o
 # Apps Script usa os links públicos delas para publicar no Instagram.
@@ -11,7 +12,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["modelos/_evento/**", "modelos/_story/**", "scripts/gerar_eventos.py", "scripts/gerar_stories.py", ".github/workflows/gerar-artes.yml"]
+    paths: ["modelos/_evento/**", "modelos/_story/**", "modelos/_cursos/**", "scripts/gerar_eventos.py", "scripts/gerar_stories.py", "scripts/gerar_cursos.py", ".github/workflows/gerar-artes.yml"]
 
 permissions:
   contents: write
@@ -44,8 +45,12 @@ jobs:
         id: stories
         run: echo "tem=$(python scripts/gerar_stories.py --checar | sed 's/^tem=//')" >> "$GITHUB_OUTPUT"
 
+      - name: Ver se tem carrossel de cursos novo (aba Cursos — Carrosséis)
+        id: cursos
+        run: echo "tem=$(python scripts/gerar_cursos.py --checar | sed 's/^tem=//')" >> "$GITHUB_OUTPUT"
+
       - name: Instalar o navegador
-        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1'
+        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1' || steps.cursos.outputs.tem == '1'
         run: |
           pip install --quiet playwright pillow
           python -m playwright install --with-deps chromium
@@ -58,13 +63,17 @@ jobs:
         if: steps.stories.outputs.tem == '1'
         run: python scripts/gerar_stories.py
 
+      - name: Gerar os carrosséis de cursos
+        if: steps.cursos.outputs.tem == '1'
+        run: python scripts/gerar_cursos.py
+
       - name: Salvar no repositório
-        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1'
+        if: steps.fila.outputs.tem == '1' || steps.stories.outputs.tem == '1' || steps.cursos.outputs.tem == '1'
         run: |
           git config user.name "handoff-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add posts/auto posts/stories
+          git add posts/auto posts/stories posts/cursos
           if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
-          git commit -m "Artes automáticas (eventos e stories)"
+          git commit -m "Artes automáticas (eventos, stories e cursos)"
           git pull --rebase --quiet
           git push
