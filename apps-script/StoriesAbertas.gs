@@ -53,7 +53,7 @@ function eventosAbertosPub_(ss, agora) {
   return lista;
 }
 
-/** Garante as linhas da aba Stories (pergunta de hoje e de amanhã; inscrições abertas no fim da tarde). */
+/** Garante as linhas da aba Stories (pergunta de hoje e de amanhã; inscrições abertas no fim da tarde; vagas à noite). */
 function storiesPrepararPub_(ss, agora) {
   if (!STORIES_DIA.ATIVO) return 0;
   const sh = abaStoriesPub_(ss);
@@ -76,6 +76,15 @@ function storiesPrepararPub_(ss, agora) {
       if (abertos.length > max) textos.mais = String(abertos.length - max);
       novas.push([idLigas, 'ligas', diaStoriesPub_(agora), JSON.stringify(textos), '', 'aguardando', '', '']);
     }
+  }
+  // Story das 21:00 do buscador de vagas (StoriesVagas.gs). Um erro aqui não atrapalha os outros stories.
+  const idVagas = 'V' + diaStoriesPub_(agora);
+  if (STORIES_DIA.VAGAS && agora >= horarioPub_(agora, STORIES_DIA.VAGAS_PREPARAR || '19:30') && !ids.has(idVagas)
+      && typeof textosVagasStoryPub_ === 'function') {
+    try {
+      const tv = textosVagasStoryPub_(ss, agora);
+      if (tv) novas.push([idVagas, 'vagas', diaStoriesPub_(agora), JSON.stringify(tv), '', 'aguardando', '', '']);
+    } catch (e) { Logger.log('Story de vagas: ' + e.message); }
   }
   if (novas.length) sh.getRange(sh.getLastRow() + 1, 1, novas.length, STORIES_COLS.length).setValues(novas);
   return novas.length;
