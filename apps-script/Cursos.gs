@@ -96,6 +96,19 @@ function cursosDesligar() {
   Logger.log('Carrossel de cursos desligado.');
 }
 
+/** Rodada manual sem publicar: atualiza o catálogo, prepara os carrosséis e manda gerar as artes. */
+function cursosPrepararAgora() {
+  const ss = planilhaPub_();
+  const agora = new Date();
+  const lidos = cursosAtualizarCatalogo_(ss, agora, true);
+  // Público-alvo de todos os cursos de uma vez (a rodada automática lê aos poucos).
+  for (let i = 0; i < 4 && cursosAtualizarCatalogo_(ss, agora) > 0; i++) { /* continua lendo */ }
+  const criados = cursosPreparar_(ss, agora);
+  const d = criados ? dispararGeradorPub_() : { ok: null };
+  Logger.log('Catálogo atualizado (' + lidos + ' detalhes lidos), ' + criados + ' carrossel(éis) novo(s)' +
+    (d.ok ? ', gerador de artes disparado.' : '.'));
+}
+
 function cursosRodada() {
   if (!CURSOS.ATIVO) return;
   const lock = lockPub_();
