@@ -162,6 +162,8 @@ CORES_CATEGORIA = {
     "pesquisa": "#3FA0F0", "intercâmbio": "#FFFFFF", "evento científico": "#FFC93C", "bolsa": "#E8483B",
     "curso online": "#C6F24E",
 }
+# Nome exibido no cartão, igual ao do site (a planilha continua com o nome original).
+ROTULO_CATEGORIA = {"evento científico": "Congressos e eventos"}
 
 
 def html_vagas(t: dict) -> str:
@@ -175,7 +177,7 @@ def html_vagas(t: dict) -> str:
         rot = (-1.2, 1.0, -0.6)[i]
         cartoes.append(
             f'<div class="vg" style="top:{topo}px;height:{VAGAS_ALTURA}px;transform:rotate({rot}deg)">'
-            f'<div class="corpo"><div class="cat"><i style="background:{cor}"></i>{esc(cat)}</div>'
+            f'<div class="corpo"><div class="cat"><i style="background:{cor}"></i>{esc(ROTULO_CATEGORIA.get(cat.strip().lower(), cat))}</div>'
             f'<div class="titulo">{esc(titulo)}</div>'
             + (f'<div class="quem">{esc(quem)}</div>' if quem.strip() else "") + "</div>"
             f'<div class="prazo{classe}"><small>{esc(rotulo)}</small><b>{esc(data) or "—"}</b></div></div>')
