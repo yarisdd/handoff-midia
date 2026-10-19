@@ -109,6 +109,24 @@ function cursosPrepararAgora() {
     (d.ok ? ', gerador de artes disparado.' : '.'));
 }
 
+/** Refaz o carrossel de amanhã (se ainda não saiu): devolve os cursos ao catálogo e escolhe de novo. */
+function cursosRefazerAmanha() {
+  const ss = planilhaPub_();
+  const agora = new Date();
+  const id = 'C' + diaStoriesPub_(somaDiasPub_(agora, 1));
+  const car = abaCursosPub_(ss, CURSOS.ABA_CARROSSEIS, CURSOS_COLS_CAR);
+  const linha = lerAbaCursos_(car, CURSOS_COLS_CAR).find(function (r) { return String(r['ID']) === id; });
+  if (linha && statusPub_(linha['Status']) === 'publicado') throw new Error(id + ' já foi publicado.');
+  const cat = abaCursosPub_(ss, CURSOS.ABA_CATALOGO, CURSOS_COLS_CAT);
+  lerAbaCursos_(cat, CURSOS_COLS_CAT).forEach(function (r) {
+    if (String(r['Usado em']) === id) escreverAbaCursos_(cat, CURSOS_COLS_CAT, r._linha, { 'Usado em': '' });
+  });
+  if (linha) car.deleteRow(linha._linha);
+  const criados = cursosPreparar_(ss, agora);
+  if (criados) dispararGeradorPub_();
+  Logger.log(id + ' refeito (' + criados + ' carrossel novo).');
+}
+
 function cursosRodada() {
   if (!CURSOS.ATIVO) return;
   const lock = lockPub_();
@@ -277,10 +295,21 @@ function cursosMontarCarrossel_(ss, dia, carrosseis) {
     if (/profissionais (da|de) (área da )?sa[úu]de|demais interessados|livre demanda/.test(p)) n += 1;
     const h = Number(r['Carga horária']) || 0;
     if (h >= 10 && h <= 60) n += 1;
+    // Para estudante de medicina, curso clínico vale mais que vigilância, laboratório ou gestão.
+    const nome = String(r['Curso']);
+    if (/manejo|cl[íi]nic|diagn[óo]stic|abordagem|tratamento|cuidado|aten[çc][ãa]o|preven[çc][ãa]o/i.test(nome)) n += 3;
+    if (/vigil[âa]ncia|laborat|controle|monitoramento|biosseguran|gest[ãa]o|pol[íi]tica|operaciona|instrutivo|caderneta/i.test(nome)) n -= 3;
     return n;
   };
   lista.sort(function (a, b) { return nota(b) - nota(a) || (Number(b['Carga horária']) || 0) - (Number(a['Carga horária']) || 0); });
-  const sel = lista.slice(0, CURSOS.POR_CARROSSEL);
+  // Sem repetir o mesmo assunto (ex.: dois de filariose): primeiro um curso por palavra-chave do tema.
+  const chave = function (r) {
+    const m = String(r['Curso']).match(new RegExp(escolha.re.source, 'i'));
+    return m ? m[0].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '') : String(r['ID curso']);
+  };
+  const sel = [], vistas = new Set();
+  lista.forEach(function (r) { if (sel.length < CURSOS.POR_CARROSSEL && !vistas.has(chave(r))) { sel.push(r); vistas.add(chave(r)); } });
+  lista.forEach(function (r) { if (sel.length < CURSOS.POR_CARROSSEL && sel.indexOf(r) < 0) sel.push(r); });
   const id = 'C' + diaStoriesPub_(dia);
 
   const textos = {
