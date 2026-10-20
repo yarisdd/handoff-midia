@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "60",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47079/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "A consulta da criança e da mulher/pessoa no puerpério na primeira semana de vida na Atenção Primária à Saúde"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "45",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47100/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Atenção à Desnutrição em Crianças e Gestantes no SUS"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47093/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Promoção da amamentação e da alimentação complementar saudável na Atenção Primária à Saúde (APS): recomendações do Guia Alimentar para Crian"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46786/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Reconhecendo a Norma Brasileira de Comercialização de Alimentos para Lactentes e Crianças de Primeira Infância, Bicos, Chupetas e Mamadeiras"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "45",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47110/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Promoção da Saúde e da Dignidade Menstrual"
+  }
+ ],
+ "paleta": "lilas",
+ "tema": "Saúde da Mulher e Materno-Infantil",
+ "tipo": "cursos",
+ "versao": 1
+}
