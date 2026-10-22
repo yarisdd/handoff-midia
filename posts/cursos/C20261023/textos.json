@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação · Online",
+   "horas": "16",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46646/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Condições Clínicas e Agravos à Saúde Frequentes na Pessoa Idosa"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "12",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46624/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Abordagem das síndromes geriátricas e cuidados paliativos na Atenção Primária à Saúde"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "8",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45297/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Envelhecimento da População Brasileira"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46644/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Ações estratégicas no cuidado à pessoa idosa na Atenção Primária"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "16",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46645/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Avaliação Multidimensional da Saúde da Pessoa Idosa"
+  }
+ ],
+ "paleta": "verde",
+ "tema": "Geriatria",
+ "tipo": "cursos",
+ "versao": 1
+}
