@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "20",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47050/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Introdução à epidemiologia clínica"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47048/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Elaborando um protocolo de ensaio clínico: população, intervenções/exposições, randomização, desfechos e cegamento (ECR-II)"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "40",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47022/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Como Buscar Evidências Científicas nas Bases de Dados da Área da Saúde"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47008/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Aspectos operacionais II: estruturação da equipe e tópicos regulatórios em pesquisa"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47009/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Aspectos operacionais III: implementação e acompanhamento do estudo"
+  }
+ ],
+ "paleta": "laranja",
+ "tema": "Pesquisa Clínica",
+ "tipo": "cursos",
+ "versao": 1
+}
