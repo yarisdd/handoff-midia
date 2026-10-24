@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45782/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Abordagem do Sobrepeso e Obesidade na Atenção Primária em Saúde"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47055/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Atributos da Atenção Primária à Saúde: Conceito e Princípios Norteadores"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47058/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Ferramentas de Abordagem clínica para um cuidado integral na APS"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47065/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Longitudinalidade do cuidado e o uso de tecnologias de informação na APS"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "60",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47005/360.jpg",
+   "instituicao": "FIOCRUZ - RJ",
+   "titulo": "Autocuidado em saúde e a Literacia para a promoção da saúde e a prevenção de doenças crônicas na Atenção Primária à Saúde"
+  }
+ ],
+ "paleta": "azul",
+ "tema": "Medicina de Família",
+ "tipo": "cursos",
+ "versao": 1
+}
