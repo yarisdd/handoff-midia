@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47002/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Atenção a homens e mulheres em situação de violência por parceiro íntimo (2024)"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45601/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Atenção à Saúde Mental do Homem"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46264/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Prevenção ao suicídio"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47000/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Rede de atenção às pessoas em situação de violência por parceiro íntimo"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47001/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "A dinâmica da violência no contexto familiar"
+  }
+ ],
+ "paleta": "lilas",
+ "tema": "Saúde Mental",
+ "tipo": "cursos",
+ "versao": 1
+}
