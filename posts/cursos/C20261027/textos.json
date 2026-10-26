@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47031/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Acesso e acolhimento na atenção à saúde do homem na Atenção Primária à Saúde"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47030/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Homens e atenção à saúde do trabalhador"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47033/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Paternidade e Cuidado (2024)"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45508/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Atenção à Saúde Sexual e Reprodutiva do Homem"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47029/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Prevenção e cuidados às doenças prevalentes em homens (2024)"
+  }
+ ],
+ "paleta": "ceu",
+ "tema": "Saúde do Homem",
+ "tipo": "cursos",
+ "versao": 1
+}
