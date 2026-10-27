@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47122/360.jpg",
+   "instituicao": "UFMA",
+   "titulo": "Cultura de Saúde Digital"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47135/360.jpg",
+   "instituicao": "UFMA",
+   "titulo": "Registros Eletrônicos e Qualidade da Informação em Saúde"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47134/360.jpg",
+   "instituicao": "UFMA",
+   "titulo": "Ética e responsabilidade social em Saúde Digital"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47120/360.jpg",
+   "instituicao": "UFMA",
+   "titulo": "Introdução à Saúde Digital"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47119/360.jpg",
+   "instituicao": "UFMA",
+   "titulo": "Saúde Digital aplicada ao SUS"
+  }
+ ],
+ "paleta": "verde",
+ "tema": "Saúde Digital",
+ "tipo": "cursos",
+ "versao": 1
+}
