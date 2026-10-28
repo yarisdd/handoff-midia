@@ -1,0 +1,6 @@
+{
+ "cta": "Responde com o número aqui embaixo",
+ "opcoes": "Manhã\nTarde\nNoite",
+ "pergunta": "Você prefere evento de manhã, de tarde ou de noite?",
+ "tipo": "pergunta"
+}
