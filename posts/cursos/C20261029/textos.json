@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "45",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45393/360.jpg",
+   "instituicao": "FIOCRUZ - MS",
+   "titulo": "Atualização do Manejo Clínico da Pessoa com Chikungunya"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "15",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47052/360.jpg",
+   "instituicao": "FIOCRUZ - PE",
+   "titulo": "Exames Laboratoriais para o Diagnóstico da Filariose Linfática"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "6",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45289/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Atualização do Manejo Clínico da Influenza"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "100",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46702/360.jpg",
+   "instituicao": "FIOCRUZ - MS",
+   "titulo": "Enfrentamento da COVID-19 e demais doenças virais"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46826/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Introdução ao Diagnóstico Laboratorial de Tuberculose e outras Micobacterioses"
+  }
+ ],
+ "paleta": "azul",
+ "tema": "Infectologia",
+ "tipo": "cursos",
+ "versao": 1
+}
