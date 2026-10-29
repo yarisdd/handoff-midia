@@ -1,0 +1,36 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação · Online",
+   "horas": "45",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46742/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Proteger e Cuidar de adolescentes na APS"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47032/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Caderneta da Criança: Instrumento intersetorial para promoção da atenção integral à saúde da criança"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47045/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Instrutivo sobre cuidado às crianças com desnutrição na Atenção Primária à Saúde"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "15",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46743/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Escuta de Crianças e Adolescentes na rede de serviços do SUS"
+  }
+ ],
+ "paleta": "ceu",
+ "tema": "Pediatria",
+ "tipo": "cursos",
+ "versao": 1
+}
