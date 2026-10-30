@@ -1,0 +1,36 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47047/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Elaborando um protocolo de ensaio clínico randomizado: racional, objetivos e delineamento do estudo (ECR-I)"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47007/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Aspectos operacionais I: organização de documentos e dados de pesquisa"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47010/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Aspectos Operacionais IV: Gerenciamento e conclusão do estudo"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "10",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47049/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Elaborando um protocolo de ensaio clínico randomizado: considerações estatísticas, éticas e operacionais (ECR-III)"
+  }
+ ],
+ "paleta": "laranja",
+ "tema": "Pesquisa Clínica",
+ "tipo": "cursos",
+ "versao": 1
+}
