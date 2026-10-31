@@ -1,0 +1,43 @@
+{
+ "cursos": [
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45811/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Reconhecendo o sobrepeso e a obesidade no contexto da Atenção Primária à Saúde"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47068/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Potencializando a prática na APS: Ferramentas de Abordagem Comunitária e a Competência Cultural"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47064/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Potencializando a prática na APS: a gestão da clínica na APS"
+  },
+  {
+   "area": "Qualificação · Online",
+   "horas": "8",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/46491/360.jpg",
+   "instituicao": "FIOCRUZ - BRASÍLIA",
+   "titulo": "Diagnóstico e Cuidado Onco-hematológico na Atenção Primária à Saúde - APS"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47066/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Potencializando a prática na APS: Ferramentas de abordagem familiar"
+  }
+ ],
+ "paleta": "azul",
+ "tema": "Medicina de Família",
+ "tipo": "cursos",
+ "versao": 1
+}
