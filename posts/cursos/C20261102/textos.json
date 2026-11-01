@@ -1,0 +1,36 @@
+{
+ "cursos": [
+  {
+   "area": "Atualização · Online",
+   "horas": "60",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45008/360.jpg",
+   "instituicao": "UFMG",
+   "titulo": "Para elas: atenção integral à saúde da mulher em situação de violência"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47021/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Violência por parceiro íntimo: definições e tipologias (2024)"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47011/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Violência por parceiro íntimo e perspectiva relacional de gênero (2024)"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47004/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Políticas públicas no enfrentamento da violência por parceiro íntimo (2024)"
+  }
+ ],
+ "paleta": "lilas",
+ "tema": "Saúde Mental",
+ "tipo": "cursos",
+ "versao": 1
+}
