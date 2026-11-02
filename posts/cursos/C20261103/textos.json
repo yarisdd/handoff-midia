@@ -1,0 +1,29 @@
+{
+ "cursos": [
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45489/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Intercorrências na Saúde Sexual e Reprodutiva do Homem"
+  },
+  {
+   "area": "Qualificação Profissional · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/47026/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Morbimortalidade por causas externas na saúde do homem (2024)"
+  },
+  {
+   "area": "Atualização · Online",
+   "horas": "30",
+   "imagem": "https://arouca.unasus.gov.br/app/imagem/curso/45381/360.jpg",
+   "instituicao": "UFSC",
+   "titulo": "Política Nacional de Atenção Integral à Saúde do Homem"
+  }
+ ],
+ "paleta": "ceu",
+ "tema": "Saúde do Homem",
+ "tipo": "cursos",
+ "versao": 1
+}
